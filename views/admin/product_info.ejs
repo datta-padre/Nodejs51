@@ -1,0 +1,70 @@
+<%-include("Navbar.ejs")%>
+
+<div class="container">
+    <div class="row bg-white p-2">
+        <div class="col-md-12">
+            <h1 class="fw-bold">Product Info</h1>
+        </div>
+    </div>
+
+    <div class="row bg-white p-2 mt-3">
+        <div class="col-md-3">
+            <b>Product Name</b>
+            <p><%=product_info.product_name%></p>
+        </div>
+
+        <div class="col-md-3">
+            <b>Product Color</b>
+            <p><%=product_info.product_color%></p>
+        </div>
+
+        <div class="col-md-3">
+            <b>Product Tag</b>
+            <p><%=product_info.product_tag%></p>
+        </div>
+
+        <div class="col-md-3">
+            <b>Product Company</b>
+            <p><%=product_info.Product_company%></p>
+        </div>
+
+        <% price.map(function(val,i){ %>
+
+            <div class="col-md-2">
+                <b>Size</b>
+                <p><%=val.product_size%></p>
+                <p><%=val.product_price%>- <span class="text-danger text-decoration-line-through"><%=val.product_duplicate_price%></span></p>
+            </div>
+
+        <% }) %>
+
+
+        <div class="col-md-3">
+            <b>Image-1</b>
+            <img src="/upload/<%=product_info.product_image1%>" alt="">
+        </div>
+
+        <div class="col-md-3">
+            <b>Image-2</b>
+            <img src="/upload/<%=product_info.product_image2%>" alt="">
+        </div>
+
+        <div class="col-md-3">
+            <b>Image-3</b>
+            <img src="/upload/<%=product_info.product_image3%>" alt="">
+        </div>
+
+        <div class="col-md-3">
+            <b>Image-4</b>
+            <img src="/upload/<%=product_info.product_image4%>" alt="">
+        </div>
+
+        <div class="col-md-12 mt-3">
+            <textarea class="form-control" name="" id=""><%=product_info.product_details%></textarea>
+        </div>
+        
+    </div>
+
+</div>
+
+<%-include("Footer.ejs")%>

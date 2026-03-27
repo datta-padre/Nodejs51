@@ -1,0 +1,58 @@
+<%-include("Navbar.ejs")%>
+
+<form action="/admin/update_banner" method="post" enctype="multipart/form-data">
+  <div class="container">
+    <div class="row p-2 bg-white rounded mb-3">
+      <div class="col-md-12">
+        <h1 class="fw-bold">update Banner</h1>
+      </div>
+    </div>
+
+
+
+    <div class="row bg-white p-3 rounded">
+      <div class="col-md-4 fw-bold mb-3">
+        <label>Title</label>
+        <input type="hidden" value="<%=info.banner_id%>" name="banner_id" id="">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Enter Title"
+          name="banner_title"
+          value="<%=info.banner_title%>"
+        />
+      </div>
+
+      <div class="col-md-8 fw-bold mb-3">
+        <label>Details</label>
+        <input class="form-control" type="text" value="<%=info.banner_details%>"  name="banner_details" />
+      </div>
+
+      <div class="col-md-4 fw-bold mb-3">
+        <label>Button Text</label>
+        <input class="form-control" type="text" value="<%=info.button_text%>" name="button_text" />
+      </div>
+
+      <div class="col-md-4 fw-bold mb-3">
+        <label>Button URL</label>
+        <input class="form-control" type="text" value="<%=info.button_url%>" name="button_url" />
+      </div>
+
+    <div class="col-md-1">
+        <img style="width: 100px;height: 100px;" src="/upload/<%=info.banner_image%>" alt="">
+    </div>
+
+      <div class="col-md-3 fw-bold mb-3">
+        <label>Banner Image</label>
+        <input class="form-control"  type="file" name="banner_image" />
+      </div>
+
+      <div class="col-md-12 text-center mt-3">
+        <button class="btn btn-primary">update Banner</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<%-include("Footer.ejs")%>

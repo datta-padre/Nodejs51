@@ -1,0 +1,56 @@
+<%-include("Navbar.ejs")%>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Product Into</h2>
+        </div>
+    </div>
+<div class="row">
+
+    <div class="col-md-6 ">
+        <div class="row">
+            <div class="col-md-12">
+                <img  id="main_img" style="width: 75%;" src="/upload/<%=product_info.product_image1%>" alt="">
+            </div>
+            <div style="margin-top: 20px;" class="col-md-12 ">
+                <img  onclick="main_img.src=this.src"  style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image1%>" alt="">
+                <img onclick="main_img.src=this.src" style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image2%>" alt="">
+                <img  onclick="main_img.src=this.src" style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image3%>" alt="">
+                <img  onclick="main_img.src=this.src" style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image4%>" alt="">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <button><%=product_info.Product_company%></button>
+
+        <h3> Name :<%=product_info.product_name%></h3>
+
+        <h3> Color :<%=product_info.product_color%></h3>
+
+        <h3>&#8377;  1999/-</h3>
+
+
+        <h3>
+            <% price.map(function(val,i){ %>
+
+                <button style="border-radius: 20px;"><%=val.product_size%></button>
+
+           <%  }) %>
+        </h3>
+
+
+        <button>Add To Cart </button>
+
+
+        <p>Details : <%=product_info.product_details%></p>
+
+    </div>
+</div>
+
+</div>
+
+<%-include("Footer.ejs")%>

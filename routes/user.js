@@ -21,8 +21,8 @@ route.get("/shop", async function(req,res){
 
         var sql = ` SELECT *,
     (SELECT MIN(product_price) FROM product_pricing
-    WHERE  products.product_id =product_pricing.product_id )
-    AS price ,
+    WHERE  products.product_id =product_pricing.product_id)
+    AS price,
     (SELECT MAX(product_duplicate_price) FROM product_pricing
     WHERE products.product_id =product_pricing.product_id )
     AS product_duplicate_price FROM products`
@@ -50,4 +50,21 @@ route.get("/contact", async function(req,res){
     res.render("user/contact.ejs",obj)
 })
 
+
+route.get("/view_product/:id",async (req,res)=>{
+    var id = req.params.id;
+
+    var about_company = await exe(`SELECT * FROM about_company`);
+    var sql = ` SELECT * FROM products WHERE product_id = '${id}'`;
+    var sql1 = ` SELECT * FROM product_pricing  WHERE  product_id = '${id}'`
+
+    var price = await exe(sql1);
+
+    var product_info = await exe(sql);
+
+    var obj = {"product_info":product_info[0],"price":price,"about_company":about_company[0]}
+
+    res.render("user/product_info.ejs",obj)
+
+})
 module.exports = route;

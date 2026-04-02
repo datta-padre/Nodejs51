@@ -1,0 +1,41 @@
+<%- include("Navbar.ejs") %>
+
+<form action="/create_new_account" method="post">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-1"></div>
+
+      <div class="col-md-6 text-center">
+        <h1>Create New Account</h1>
+
+        <div class="mb-3">
+          <label>Enter UserName</label>
+          <input class="form-control" type="text" name="user_name" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Enter Email</label>
+          <input class="form-control" type="email" name="user_email" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Enter Mobile</label>
+          <input class="form-control" type="number" name="user_mobile" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Enter Password</label>
+          <input class="form-control" type="password" name="password" required>
+        </div>
+
+        <button class="btn btn-primary">Create Account</button> <br><br>
+
+         <a href="/login">User Already </a>
+      </div>
+
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</form>
+
+<%- include("Footer.ejs") %>

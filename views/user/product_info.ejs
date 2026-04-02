@@ -3,17 +3,24 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-md-12">
-            <h2>Product Into</h2>
+          
         </div>
     </div>
 <div class="row">
 
     <div class="col-md-6 ">
         <div class="row">
-            <div class="col-md-12">
-                <img  id="main_img" style="width: 75%;" src="/upload/<%=product_info.product_image1%>" alt="">
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-10">
+                <img  id="main_img"  style="width: 75%;" src="/upload/<%=product_info.product_image1%>" alt="">
             </div>
-            <div style="margin-top: 20px;" class="col-md-12 ">
+
+            
+<div class="col-md-2"></div>
+
+            <div style="margin-top: 20px;" class="col-md-10 ">
                 <img  onclick="main_img.src=this.src"  style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image1%>" alt="">
                 <img onclick="main_img.src=this.src" style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image2%>" alt="">
                 <img  onclick="main_img.src=this.src" style="width: 70px; height: 60px; border: 1px solid black;" src="/upload/<%=product_info.product_image3%>" alt="">
@@ -31,19 +38,19 @@
 
         <h3> Color :<%=product_info.product_color%></h3>
 
-        <h3>&#8377;  1999/-</h3>
+        <h3 id="price" >&#8377; <%=price[0].product_price%> /-</h3>
 
 
         <h3>
             <% price.map(function(val,i){ %>
 
-                <button style="border-radius: 20px;"><%=val.product_size%></button>
+                <button onclick="setprice('<%=val.product_price%>','<%=val.product_pricing_id%>')" style="border-radius: 20px;"><%=val.product_size%> </button>
 
            <%  }) %>
         </h3>
 
 
-        <button>Add To Cart </button>
+        <button onclick="addTocart()">Add To Cart </button>
 
 
         <p>Details : <%=product_info.product_details%></p>
@@ -52,5 +59,28 @@
 </div>
 
 </div>
+
+
+<script>
+
+   var product_pricing_id = null;
+
+    function setprice(price,data){
+
+        product_pricing_id = data;
+
+        document.getElementById('price').innerHTML = '&#8377;'+price+'/-';
+    }
+
+
+    function addTocart(){
+
+        var url='/add_to_cart/<%=product_info.product_id%>/'+product_pricing_id;
+
+        location.href =  url;
+
+    }
+</script>
+
 
 <%-include("Footer.ejs")%>

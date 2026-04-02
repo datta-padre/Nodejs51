@@ -1,0 +1,61 @@
+<%-include("Navbar.ejs")%>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Cart</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table width="100%" >
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>QTY</th>    
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+
+                <% cart.map(function(item,i){ %>
+
+                    <tr>
+                        <td><%=i+1%></td>
+                        <td><%=item.product_name%></td>
+                        <td>
+                            <img style="width: 100px; height: 100px;" src="/upload/<%=item.product_image1%>" alt="">
+                        </td>
+                        <td><%=item.product_price%></td>
+                        <td><%=item.product_size%></td>
+
+                        <td>
+                            <button>-</button>
+                            <%=item.qty%>
+                        <button>+</button>
+                        </td>
+
+                        <td><%=item.product_price*item.qty%></td>
+                             
+                        <td>
+                            <a href="">Remove</a>
+                        </td>
+                    </tr>
+
+               <%  }) %>
+
+            </table>
+
+        </div>
+        <div class="col-md-12">
+         <h1>Total : 10000 /-</h1>
+            <button>checkout</button>
+        </div>
+    </div>
+</div>
+
+
+
+<%-include("Footer.ejs")%>

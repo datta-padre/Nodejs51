@@ -3,11 +3,19 @@ var bodyparser = require("body-parser");
 var AdminRoute = require("./routes/admin");
 var UserRoute = require("./routes/user");
 var upload = require("express-fileupload");
+var session = require("express-session");
 
 var app = express();
 app.use(express.static("public/"))
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(upload());
+
+app.use(session({
+    resave:true,
+    saveUninitialized:true,
+    secret:"asdfghj"
+}));
+
 
 
 app.use("/",UserRoute );

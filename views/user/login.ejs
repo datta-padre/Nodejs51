@@ -1,0 +1,31 @@
+<%- include("Navbar.ejs") %>
+
+<form action="/do_login" method="post">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6 text-center">
+        <h1>Login</h1>
+
+        <div class="mb-3">
+          <label>Enter Email</label>
+          <input class="form-control" type="email" name="user_email" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Enter Password</label>
+          <input class="form-control" type="password" name="password" required>
+        </div>
+
+        <button class="btn btn-primary">Login</button> <br><br>
+
+         <a href="/create_account">create New Account</a>
+      </div>
+
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</form>
+
+<%- include("Footer.ejs") %>

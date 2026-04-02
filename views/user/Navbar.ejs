@@ -75,29 +75,40 @@
               </div>
               <div class="col-md-4 shipping-purchase text-center">
                
+                
+
               </div>
               <div class="col-md-4 col-sm-12 user-items">
                 <ul class="d-flex justify-content-end list-unstyled">
-                  <li>
-                    <a href="login.html">
-                      <i class="icon icon-user"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="cart.html">
+
+                  <% if(is_login){ %>
+
+                 <li>
+                    <a href="/cart">
+                      Cart
                       <i class="icon icon-shopping-cart"></i>
                     </a>
                   </li>
                   <li>
-                    <a href="wishlist.html">
-                      <i class="icon icon-heart"></i>
+                    <a href="/logout">
+                      Logout
+                      <i class="icon icon-logout"></i>
                     </a>
                   </li>
-                  <li class="user-items search-item pe-3">
-                    <a href="#" class="search-button">
-                      <i class="icon icon-search"></i>
+
+                   <%}else{ %>
+
+                    
+                  <li>
+
+                    <a href="/login">
+                      Login
+                      <i class="icon icon-user"></i>
                     </a>
                   </li>
+
+                  <% } %>
+
                 </ul>
               </div>
             </div>
@@ -109,7 +120,7 @@
               <div class="col-lg-2 col-md-2">
                 <div class="main-logo">
                   <a href="index.html">
-                    <img src="images/main-logo.png" alt="logo">
+                    <img src="/images/main-logo.png" alt="logo">
                   </a>
                 </div>
               </div>

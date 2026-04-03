@@ -1,14 +1,16 @@
 <%-include("Navbar.ejs")%>
 
 <div class="container">
+    
     <div class="row">
         <div class="col-md-12">
             <h1>Cart</h1>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-12">
-            <table width="100%" >
+            <table width="100%">
                 <tr>
                     <th>Sr.No</th>
                     <th>Name</th>
@@ -20,7 +22,12 @@
                     <th>Action</th>
                 </tr>
 
+                 <% var sum = 0%>
+                
+
                 <% cart.map(function(item,i){ %>
+
+                   
 
                     <tr>
                         <td><%=i+1%></td>
@@ -28,34 +35,61 @@
                         <td>
                             <img style="width: 100px; height: 100px;" src="/upload/<%=item.product_image1%>" alt="">
                         </td>
-                        <td><%=item.product_price%></td>
+
+                        <%  sum += item.product_price * item.qty; %>
+
+                        <td>&#8377;<%=item.product_price%></td>
                         <td><%=item.product_size%></td>
 
                         <td>
                             <button>-</button>
                             <%=item.qty%>
-                        <button>+</button>
+                            <button onclick="qtyincrease('<%=item.cart_id%>')">+</button>
                         </td>
 
-                        <td><%=item.product_price*item.qty%></td>
-                             
+                        <td>&#8377;<%=item.product_price * item.qty %></td>
+                        
                         <td>
                             <a href="">Remove</a>
                         </td>
                     </tr>
-
-               <%  }) %>
-
+                <% }) %>
             </table>
-
-        </div>
-        <div class="col-md-12">
-         <h1>Total : 10000 /-</h1>
-            <button>checkout</button>
         </div>
     </div>
+
+    <hr>
+
+    <div class="row mt-3">
+        <div class="col-md-12 d-flex justify-content-end">
+            <div class="text-end">
+                <h3>Total : <%=sum%> /-</h3>
+                <button class="btn btn-success ">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+<script>
+    function qtyincrease(cart_id){
 
+        console.log(cart_id)
+
+        location.href = '/qtyincrease/'+cart_id
+    }
+</script>
+
+<style>
+button {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+</style>
 
 <%-include("Footer.ejs")%>

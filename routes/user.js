@@ -107,6 +107,8 @@ route.post("/do_login",async function(req,res){
 
 function verfiyaccount(req,res,next){
 
+    req.session.user_id = 2;
+
     var user_id = req.session.user_id;
     
     if(user_id){
@@ -158,6 +160,18 @@ route.get("/cart",async function(req,res){
 
     console.log(cart_data)
     res.render("user/cart.ejs",obj)
+})
+
+route.get("/qtyincrease/:id",async function(req,res){
+
+    var id = req.params.id;
+
+    var sql = `UPDATE cart SET qty = qty+1 WHERE cart_id = '${id}' `;
+
+    var data = await exe(sql);
+
+    res.redirect("/cart")
+
 })
 
 

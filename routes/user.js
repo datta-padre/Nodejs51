@@ -107,7 +107,7 @@ route.post("/do_login",async function(req,res){
 
 function verfiyaccount(req,res,next){
 
-    req.session.user_id = 2;
+    // req.session.user_id = 4;
 
     var user_id = req.session.user_id;
     
@@ -172,6 +172,38 @@ route.get("/qtyincrease/:id",async function(req,res){
 
     res.redirect("/cart")
 
+})
+
+
+route.get("/checkout", async function(req,res){
+
+    var sql=`SELECT * FROM products ,product_pricing ,cart 
+     WHERE
+      products.product_id = product_pricing.product_id
+      AND 
+      product_pricing.product_pricing_id = cart.product_pricing_id
+      AND products.product_id = cart.product_id
+     AND 
+    cart.user_id = ${req.session.user_id}`
+
+    var cart = await exe(sql);
+
+    console.log(cart)
+
+     var about_company = await exe(`SELECT * FROM about_company`);
+     var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req),"cart":cart}
+
+     if(cart.length > 0){
+        res.render("user/checkout.ejs",obj)
+     }else{
+        res.redirect("/shop")
+     }
+
+    
+})
+
+route.post("/order",function(req,res){
+    res.send("Order Done")
 })
 
 

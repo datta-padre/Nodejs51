@@ -1,0 +1,29 @@
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_bpN3aN81Oaf8Mo", // Enter the Key ID generated from the Dashboard
+    "amount": 100 * 100, // Amount is in currency subunits. 
+    "currency": "INR",
+    "name": "Ultrals",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",//This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "",
+    "prefill": {
+        "name": "",
+        "email": "",
+        "contact": ""
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+    rzp1.open();
+    e.preventDefault();
+
+</script>

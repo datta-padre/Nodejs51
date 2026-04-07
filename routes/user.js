@@ -158,7 +158,6 @@ route.get("/cart",async function(req,res){
 
     var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req),"cart":cart_data}
 
-    console.log(cart_data)
     res.render("user/cart.ejs",obj)
 })
 
@@ -188,7 +187,6 @@ route.get("/checkout", async function(req,res){
 
     var cart = await exe(sql);
 
-    console.log(cart)
 
      var about_company = await exe(`SELECT * FROM about_company`);
      var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req),"cart":cart}
@@ -203,7 +201,18 @@ route.get("/checkout", async function(req,res){
 })
 
 route.post("/order",function(req,res){
-    res.send("Order Done")
+    var d = req.body;
+
+    if(d.payment_type == "online"){
+        res.redirect("/payment")
+    }else{
+        res.redirect("/order_info")
+    }
+})
+
+
+route.get("/payment",function(req,res){
+    res.render("user/payment.ejs")
 })
 
 

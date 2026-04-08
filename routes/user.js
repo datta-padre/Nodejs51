@@ -219,12 +219,4 @@ route.get("/payment",function(req,res){
 module.exports = route;
 
 
-// CREATE TABLE cart (
-//     cart_id INT PRIMARY KEY AUTO_INCREMENT ,
-//     product_id INT ,
-//     product_pricing_id INT ,
-//     user_id INT ,
-//     qty INT 
-
-// )
 

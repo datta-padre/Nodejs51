@@ -1,11 +1,32 @@
 {
   "dependencies": {
     "body-parser": "^2.2.2",
+    "dotenv": "^17.4.1",
     "ejs": "^5.0.1",
     "express": "^5.2.1",
     "express-fileupload": "^1.5.2",
     "express-session": "^1.19.0",
     "mysql2": "^3.20.0",
     "util": "^0.12.5"
-  }
+  },
+  "name": "project_1",
+  "version": "1.0.0",
+  "description": "\"# Nodejs51\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datta-padre/Nodejs51.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/datta-padre/Nodejs51/issues"
+  },
+  "homepage": "https://github.com/datta-padre/Nodejs51#readme"
 }

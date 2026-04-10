@@ -20,7 +20,7 @@ route.get("/about", async function(req,res){
 route.get("/shop", async function(req,res){
     var about_company = await exe(`SELECT * FROM about_company`);
 
-        var sql = ` SELECT *,
+    var sql = ` SELECT *,
     (SELECT MIN(product_price) FROM product_pricing
     WHERE  products.product_id =product_pricing.product_id)
     AS price,
@@ -31,7 +31,6 @@ route.get("/shop", async function(req,res){
     var product = await exe(sql);
 
     var obj = {"about_company":about_company[0],"product":product,"is_login":verfiyaccount(req)}
-
 
     res.render("user/shop.ejs",obj)
 })
@@ -104,10 +103,9 @@ route.post("/do_login",async function(req,res){
     
 })
 
-
 function verfiyaccount(req,res,next){
 
-    // req.session.user_id = 4;
+    req.session.user_id = 3;
 
     var user_id = req.session.user_id;
     
@@ -152,9 +150,7 @@ route.get("/cart",async function(req,res){
      AND 
     cart.user_id = ${req.session.user_id}`
 
-
     var cart_data = await exe(sql);
-
 
     var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req),"cart":cart_data}
 
@@ -187,7 +183,6 @@ route.get("/checkout", async function(req,res){
 
     var cart = await exe(sql);
 
-
      var about_company = await exe(`SELECT * FROM about_company`);
      var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req),"cart":cart}
 
@@ -200,19 +195,134 @@ route.get("/checkout", async function(req,res){
     
 })
 
-route.post("/order",function(req,res){
+route.post("/order", async function(req,res){
     var d = req.body;
 
+     var sql=`SELECT * FROM products ,product_pricing ,cart 
+     WHERE
+      products.product_id = product_pricing.product_id
+      AND 
+      product_pricing.product_pricing_id = cart.product_pricing_id
+      AND products.product_id = cart.product_id
+     AND 
+    cart.user_id = ${req.session.user_id}`
+
+    var cart = await exe(sql);
+
+    var sum = 0;
+
+    for(var i=0;i<cart.length;i++){
+
+        sum += cart[i].product_price * cart[i].qty;
+
+    }
+
+    var sql1 = `INSERT INTO order_tbl(
+    customer_name,
+    customer_mobile,
+    customer_state,
+    customer_district,
+    customer_city,
+    customer_area,
+    customer_landmark,
+    customer_pincode,
+    payment_type,
+    order_amount,
+    payment_status,
+    order_status
+) VALUES (
+    '${d.name}',
+    '${d.mobile}',
+    '${d.state}',
+    '${d.district}',
+    '${d.city}',
+    '${d.area}',
+    '${d.landmark}',
+    '${d.pincode}',
+    '${d.payment_type}',
+    '${sum}',
+    'pending',
+    'pending'
+);`
+
+
+var data = await exe(sql1)
+
+var order_id =  data.insertId;
+
+
+for(var i=0 ;i<cart.length;i++){
+
+    var sql2 = `INSERT INTO order_det(
+    order_id,
+    product_id,
+    customer_id,
+    product_pricing_id,
+    product_name,
+    product_price,
+    product_color,
+    product_size,
+    product_image1,
+    product_company,
+    product_qty,
+    product_total
+) VALUES (
+ ${order_id},
+ ${cart[i].product_id},
+ ${req.session.user_id},
+ ${cart[i].product_pricing_id},
+ '${cart[i].product_name}',
+ ${cart[i].product_price},
+ '${cart[i].product_color}',
+ '${cart[i].product_size}',
+ '${cart[i].product_image1}',
+ '${cart[i].Product_company}',
+ ${cart[i].qty},
+ ${cart[i].product_price *cart[i].qty }
+ );`
+ console.log(sql2)
+
+ var data2 = await exe(sql2)
+
+}
+
+var data2 = await exe(`DELETE FROM cart WHERE user_id = ${req.session.user_id}`);
+
     if(d.payment_type == "online"){
-        res.redirect("/payment")
+        res.redirect("/payment/"+order_id)
     }else{
         res.redirect("/order_info")
     }
+
 })
 
+route.get("/payment/:id",async function(req,res){
+    var order_id = req.params.id;
 
-route.get("/payment",function(req,res){
-    res.render("user/payment.ejs")
+    var sql = ` SELECT * FROM order_tbl WHERE order_id=${order_id}`
+
+    var data = await exe(sql);
+
+    res.render("user/payment.ejs",{"data":data[0]})
+})
+
+route.post("/payment_check/:id", async function(req,res){
+
+    var order_id = req.params.id;
+
+    var sql = ` UPDATE order_tbl SET transaction_id ='${req.body.razorpay_payment_id}' WHERE order_id =${order_id} `
+
+    var data = await exe(sql)
+
+    res.redirect("/order_info")
+})
+
+route.get("/order_info", async function(req,res){
+
+        var about_company = await exe(`SELECT * FROM about_company`);
+     var obj = {"about_company":about_company[0],"is_login":verfiyaccount(req)}
+
+    res.render("user/order_info.ejs",obj)
 })
 
 

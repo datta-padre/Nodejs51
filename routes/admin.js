@@ -251,6 +251,20 @@ route.get("/product_info/:id",async function(req,res){
 })
 
 
+route.get("/order_list/:status", async function(req,res){
+    var status = req.params.status;
+
+    var sql = ` SELECT * FROM order_tbl WHERE order_status='${status}'`
+
+    var data = await exe(sql)
+
+
+    var obj ={"status":status,"list":data}
+
+    res.render("admin/order_list.ejs",obj)
+
+})
+
 
 
 module.exports = route;

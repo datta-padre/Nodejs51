@@ -4,6 +4,7 @@ var AdminRoute = require("./routes/admin");
 var UserRoute = require("./routes/user");
 var upload = require("express-fileupload");
 var session = require("express-session");
+require("dotenv").config()
 
 var app = express();
 app.use(express.static("public/"))
@@ -21,7 +22,7 @@ app.use(session({
 app.use("/",UserRoute );
 app.use("/admin",AdminRoute);
 
-app.listen(1000);
+app.listen(process.env.PORT || 1000); 
 
 
 

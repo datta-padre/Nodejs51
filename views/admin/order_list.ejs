@@ -1,0 +1,42 @@
+<%-include("Navbar.ejs")%>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="font-weight: bold;">Product <%=status%></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table ">
+                <tr>
+                    <th>Action</th>
+                    <th>Sr.NO</th>
+                    <th>customer</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>order_amount</th>
+                    <th>payment_status</th>
+                </tr>
+
+                <% list.map(function(item,i){ %>
+
+                    <tr>
+                        <td><button>Details</button></td>
+                        <td><%=i+1%></td>
+                        <td><%=item.customer_name%></td>
+                        <td><%=item.customer_mobile%></td>
+                        <td><%=item.customer_state%> , <%=item.customer_district%></td>
+                        <td><%=item.order_amount%> </td>
+                        <td><%=item.payment_status%> </td>
+                    </tr>
+
+               <%  }) %>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<%-include("Footer.ejs")%>
